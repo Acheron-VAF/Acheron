@@ -55,7 +55,7 @@ export default class Settings extends Component<Props> {
           <div>
             <h2>Prismatica Settings</h2>
             <Grid container spacing={24}>
-              <Grid item xs={6}>
+            <Grid item xs={6}>
                 <FormControl>
                   <InputLabel htmlFor="eServer">Emergence Server</InputLabel>
                   <Input
@@ -69,6 +69,7 @@ export default class Settings extends Component<Props> {
                   />
                 </FormControl>
               </Grid>
+              
               <Grid item xs={6}>
                 <FormControl>
                   <InputLabel htmlFor="c2Server">C2 Server</InputLabel>

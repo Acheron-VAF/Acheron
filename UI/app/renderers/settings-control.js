@@ -6,19 +6,19 @@ const homedir = require('os').homedir();
 var prismdir = path.join(homedir, '.prismatica')
 var settingsconf = path.join(homedir, '.prismatica', 'settings.json')
 
-export default function updateSettings(newsettings) {
+export function updateSettings(newsettings) {
 
   //console.log(settingsconf)
   //console.log(newsettings)
 
   if (!fs.existsSync(prismdir)) {
       fs.mkdirSync(prismdir);
-      fs.writeFile(settingsconf, '{"test":"tmp"}');
+      fs.writeFile(settingsconf, '{"emergence":{}}');
   }
 
   //Get current configuration
-  //let curconf = JSON.parse(fs.readFileSync(settingsconf));
-  //console.log(curconf)
+  let curconf = JSON.parse(fs.readFileSync(settingsconf));
+  console.log(curconf)
 
 
   fs.writeFile(settingsconf, JSON.stringify(newsettings), function(err) {
@@ -33,8 +33,10 @@ export default function updateSettings(newsettings) {
 export function getSettings() {
 
   if (!fs.existsSync(prismdir)) {
-      fs.mkdirSync(prismdir);
-      fs.writeFile(settingsconf, '{"test":"tmp"}');
+    fs.mkdirSync(prismdir);
+  }
+  if (!fs.existsSync(settingsconf)) {
+    fs.writeFile(settingsconf, '{"emergence":{}}');
   }
 
   //Get current configuration

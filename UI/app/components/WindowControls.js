@@ -39,7 +39,7 @@ export default class WindowControls extends Component<Props> {
     } = this.props;
     return (
       <div>
-        <div className="dragbar">Prismatica | Acheron Vulnerability Assessment</div>
+        <div className="dragbar">Prismatica | Acheron | Vulnerability Assessment</div>
         <div id="title-bar-btns" className={styles.windowcontrols}>
           <div className={styles.windowClose} id="close-btn" onClick={this.windowClose.bind(this)}>
             <svg x="0px" y="0px" viewBox="0 0 10 10">

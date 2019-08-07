@@ -15,11 +15,12 @@ import SessionTable from './SessionTable';
 import Vulnerabilities from './Vulnerabilities';
 import Network from './Network';
 
+import EmergenceSetup from './EmergenceSetup';
+import EmergenceCheck from './EmergenceCheck';
+
 const remote = require('electron').remote;
 
 import { getSettings } from '../renderers/settings-control';
-
-
 
 type Props = {
   addSession: () => void,
@@ -38,11 +39,6 @@ export default class PrismaticInterpreter extends Component<Props> {
        showVulnerabilities: false,
        showNetwork: true,
        settings: getSettings(),
-       agentid: '',
-       task: '',
-       cmdRet: '',
-       oldCmdRet: '',
-       prompt: 'PRISM> ',
        session: '',
        tabs: []
     };
@@ -50,6 +46,7 @@ export default class PrismaticInterpreter extends Component<Props> {
     this.showVulnerabilities = this.showVulnerabilities.bind(this)
     this.showNetwork = this.showNetwork.bind(this)
   }
+
   toggleTableView() {
     this.hideAll()
     if (this.state.sessionTable == true) {
@@ -75,59 +72,7 @@ export default class PrismaticInterpreter extends Component<Props> {
       );
   }
 
-  //Emergence Controls
-  emCreateTask(task) {
-    //Shell tasks and CMD passthrough
-    var cmd = task._.join(" ");
-
-    //Get Session ID from localStorage
-    var sid = localStorage.getItem("currentSession")
-
-    //Match SID to AID
-    var agentid = ''
-    let data = this.props.sessions
-    var sessionDetails = Object.keys(data).map(function(key) {
-        if (data[key].id == sid) {
-          agentid = data[key].aid
-          //console.log(data[key].aid)
-        }
-    });
-    //If no id user not interacting with session
-
-    fetch('http://' + this.state.settings.emergenceServer + ':29001/api/task', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        agentid: agentid.toString(),
-        datetime: "now",
-        cmd: cmd
-      })
-    })
-  }
-
-  emTaskResponse() {
-    try {
-      if (this.state.oldCmdRet._id != this.state.cmdRet._id) {
-        console.log(atob(this.state.cmdRet.retval));
-        this.setState({
-          oldCmdRet: this.state.cmdRet
-        });
-      }
-    } catch(e) {
-      let tmptmp = 0;
-    }
-  }
-
-  handleChange() {
-    console.log("here")
-  }
-
-
-
-
+  // this.state.settings.emergenceServer
 
   render() {
     const {
@@ -135,49 +80,10 @@ export default class PrismaticInterpreter extends Component<Props> {
       addSession
     } = this.props;
 
-    const vulndata = [
-      {
-        name: "MS17-010 ETERNALBLUE",
-        rating: "High",
-      },
-      {
-        name: "MS17-010 ETERNALBLUE",
-        rating: "High",
-      },
-      {
-        name: "MS17-010 ETERNALBLUE",
-        rating: "High",
-      },
-    ]
-
-    const hostdata = [
-      {
-        name: "DC1",
-        ip: "10.0.10.6",
-      },
-      {
-        name: "DC2",
-        ip: "10.0.10.5",
-      },
-      {
-        name: "SharePoint",
-        ip: "10.0.30.10",
-      },
-    ]
-
-
     return (
       <div className={styles.basecontainer}>
         <WindowControls />
-        <MenuBar toggleTableView={this.toggleTableView} showVulnerabilities={this.showVulnerabilities} showNetwork={this.showNetwork}/>
-
-        { this.state.sessionTable ? <SessionTable sessions={this.props.sessions} /> : null }
-        { this.state.showVulnerabilities ? <Vulnerabilities vulndata={vulndata}/> : null }
-        { this.state.showNetwork ? <Network hostdata={hostdata}/> : null }
-
-        <div className={styles.container} data-tid="container">
-
-        </div>
+        { typeof this.state.settings.emergence.server === 'undefined' ? <EmergenceSetup/> : <EmergenceCheck settings={this.state.settings}/> }
       </div>
     );
   }

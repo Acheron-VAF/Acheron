@@ -7,7 +7,7 @@
 body {
   position: relative;
   height: 100vh;
-  background-color: #fff;
+  background-color: #333;
   font-family: Arial, Helvetica, Helvetica Neue, serif;
   overflow-y: hidden;
 }
@@ -20,7 +20,23 @@ body {
   padding-top: 10px;
   min-height: 30px;
   font-size: 12px;
-  width: 100%;
+  margin-right: 0px;
+  padding-right: 0px;
+  width: 101%;
   background-color: #322f2f;
   -webkit-app-region: drag;
+}
+
+div#loaderBox {
+  position: absolute;
+  width: 35em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div#loaderBox svg {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3em;
 }

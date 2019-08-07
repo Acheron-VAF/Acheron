@@ -21,7 +21,7 @@
 }
 .menucontainer {
   position: absolute;
-  top: 22px;
+  top: 0px;
   height: 45px;
   background-color: #222;
   width: 100vw;
@@ -83,7 +83,7 @@
   -webkit-app-region: no-drag;
   position: fixed;
   right: 0px;
-  margin-right: 2px;
+  margin-right: 0px;
   text-align: left;
   top: 0;
 }
@@ -149,11 +149,22 @@
 }
 .pagecontainer {
   position: relative;
-  top: 67px;
+  top: 10px;
   height: 100vh;
   background-color: #333;
   width: 100vw;
 }
+
+.pagecontent {
+  position: relative;
+  top: 50px;
+  padding: 0px;
+  margin: 0px;
+  height: 100vh;
+  background-color: #333;
+  width: 100vw;
+}
+
 .pageheader {
   padding: 20px;
 }
@@ -166,4 +177,26 @@
 .tabpage {
   top: 20px;
   padding: 20px;
+}
+.centeredUserInput {
+  width: 35em;
+  height: 25em;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.centeredUserInput h1 {
+  text-align: center;
+  padding-top: 1em;
+}
+
+.centeredUserInput p {
+  text-align: center;
+}
+
+.centeredUserInput input {
+  display: block;
+  width: 50%;
+  padding: 1em;
+  margin: 1em auto;
 }
